@@ -1,0 +1,26 @@
+.component-card {
+  width: 100px;
+  height: 100px;
+  background: #fff;
+  border: 1px solid Red;
+  margin: 10px 10px;
+  padding: 10px 10px;
+}
+.component-card.is-x-active {
+  box-shadow: 2px 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.component-card.is-y-active {
+  transform: scale(1.2);
+}
+.component-card.is-x-active.is-y-active {
+  border: 1px solid black;
+}
+.component-card .component-card--title {
+
+}
+.component-card--content{
+
+}
+.component-card--des{
+
+}

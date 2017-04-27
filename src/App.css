@@ -1,0 +1,8 @@
+.App {
+  text-align: center;
+}
+.App-cards--wrap {
+  display: flex;
+  flex-wrap: wrap;
+  width: 800px;
+}
