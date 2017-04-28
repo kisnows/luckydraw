@@ -4,7 +4,7 @@
  */
 export default class Square {
   constructor(list) {
-    if (!list instanceof Array) throw new Error('List Must be a Array ')
+    if (!(list instanceof Array)) throw new Error('List Must be a Array ')
     this.list = list
     this.sideLength = 0
   }
@@ -14,7 +14,7 @@ export default class Square {
     this.sideLength = Math.floor(Math.sqrt(length))
     return this
   }
-  
+
   setCoordinate() {
     this.getSideLength()
     this.list.forEach((v, k) => {

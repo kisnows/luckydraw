@@ -1,3 +1,8 @@
+/*
+* Created on Fri Apr 28 2017
+* author: kisnows
+* email: yq12315@gmail.com
+*/
 import React from 'react'
 import './Card.css'
 import classname from 'classname'
@@ -9,6 +14,8 @@ export default function (props) {
     'is-y-active': isY
   })
   const styles = {
+    width: `${style.width}px`,
+    height: `${style.height}px`,
     background: style && style.background
   }
   return (
