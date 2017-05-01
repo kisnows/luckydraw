@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { findDOMNode } from 'react-dom'
 import './CardWrap.css'
 import Square from '../utils/Square'
-import { dataList } from '../utils/geterate'
+import { dataList } from '../utils/generate'
 import Card from './Card'
 
 const list = dataList(45)
@@ -44,9 +44,9 @@ export default class CardWrap extends React.Component {
     const { sideLength } = this.props
     const $card = findDOMNode(this.wrap).getElementsByClassName('component-card')[0]
     const cardStyles = window.getComputedStyle($card)
-    const cardWidth = parseInt(cardStyles.width)
-    const cardHeight = parseInt(cardStyles.height)
-    const width = Math.max(window.innerWidth, window.innerHeight)
+    const cardWidth = parseInt(cardStyles.width, 10)
+    // const cardHeight = parseInt(cardStyles.height, 10)
+    const width = Math.max(window.innerWidth, window.innerHeight) * 0.8
     const vWidth = width / sideLength
     const scale = vWidth / cardWidth
     this.setState({
@@ -63,6 +63,7 @@ export default class CardWrap extends React.Component {
   }
   renderCards = () => {
     const { cardStyle } = this.state
+    const { currentX, currentY } = this.props
     return this.props.objList.map(function (v) {
       return <Card
         key={v.name}
@@ -70,6 +71,8 @@ export default class CardWrap extends React.Component {
         des={v.gender}
         coordinate={v.coordinate}
         style={cardStyle}
+        isX={currentX === v.coordinate.x}
+        isY={currentY === v.coordinate.y}
       />
     })
   }

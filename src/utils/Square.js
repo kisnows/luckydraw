@@ -11,7 +11,7 @@ export default class Square {
 
   getSideLength() {
     const length = this.list.length
-    this.sideLength = Math.floor(Math.sqrt(length))
+    this.sideLength = Math.round(Math.sqrt(length))
     return this
   }
 

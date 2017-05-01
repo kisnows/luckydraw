@@ -8,3 +8,11 @@ export function dataList(numbers) {
   }
   return list
 }
+
+export function random(from, to) {
+  return Math.random() * (to - from) + from
+}
+
+export function trueRandom(form, to) {
+
+}
