@@ -23,6 +23,10 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    fetch('/api/members')
+      .then(res => res.json())
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
   }
   handleStart = () => {
     clearInterval(this.timer)
