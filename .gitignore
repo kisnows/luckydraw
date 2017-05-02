@@ -9,3 +9,5 @@
 Logs
 *.log
 npm-debug.log
+*.xls
+*.xlsx
