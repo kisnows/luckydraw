@@ -19,10 +19,12 @@ export default function (props) {
     background: style && style.background
   }
   return (
-    <div className={cls} data-x={coordinate.x} data-y={coordinate.y} style={styles}>
-      <h3 className='component-card--title'>{title}</h3>
-      <div className='component-card--content'>{content}</div>
-      <p className='component-card--des'>{des}</p>
-    </div >
+    <div className='component-card-wrap' style={styles}>
+      <div className={cls} data-x={coordinate.x} data-y={coordinate.y} >
+        <h3 className='component-card--title'>{title}</h3>
+        <div className='component-card--content'>{content}</div>
+        <p className='component-card--des'>{des}</p>
+      </div >
+    </div>
   )
 }

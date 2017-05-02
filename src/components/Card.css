@@ -1,26 +1,33 @@
-.component-card {
+.component-card-wrap {
   width: 100px;
   height: 100px;
+  padding: 2%;
+}
+
+.component-card {
+  width: 100%;
+  height: 100%;
   background: #fff;
   border: 1px solid Red;
   padding: 10px 10px;
   transition: all .3s ease-in;
 }
+
 .component-card.is-x-active {
   box-shadow: 2px 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
 .component-card.is-y-active {
+  transform-origin: center center;
   transform: scale(1.2);
 }
+
 .component-card.is-x-active.is-y-active {
   border: 1px solid black;
 }
-.component-card .component-card--title {
 
-}
-.component-card--content{
+.component-card .component-card--title {}
 
-}
-.component-card--des{
+.component-card--content {}
 
-}
+.component-card--des {}

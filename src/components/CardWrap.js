@@ -42,11 +42,13 @@ export default class CardWrap extends React.Component {
 
   init = () => {
     const { sideLength } = this.props
-    const $card = findDOMNode(this.wrap).getElementsByClassName('component-card')[0]
+    const $wrap = findDOMNode(this.wrap)
+    const $card = $wrap.getElementsByClassName('component-card')[0]
+    const wrapStyles = window.getComputedStyle($wrap)
     const cardStyles = window.getComputedStyle($card)
     const cardWidth = parseInt(cardStyles.width, 10)
     // const cardHeight = parseInt(cardStyles.height, 10)
-    const width = Math.max(window.innerWidth, window.innerHeight) * 0.8
+    const width = Math.max(parseInt(wrapStyles.width, 10), parseInt(wrapStyles.height, 10)) * 0.8
     const vWidth = width / sideLength
     const scale = vWidth / cardWidth
     this.setState({
@@ -81,7 +83,7 @@ export default class CardWrap extends React.Component {
     const { currentX, currentY } = this.props
     const { style } = this.state
     return (
-      <div
+      <section
         className='component-cards--wrap'
         data-current-x={currentX}
         data-current-y={currentY}
@@ -89,7 +91,7 @@ export default class CardWrap extends React.Component {
         style={style}
       >
         {this.renderCards()}
-      </div>
+      </section>
     )
   }
 }

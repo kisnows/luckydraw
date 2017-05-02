@@ -4,7 +4,7 @@ import CardWrap from './components/CardWrap'
 import Nav from './components/Nav'
 import Square from './utils/Square'
 import { dataList, random } from './utils/generate'
-
+import LuckyList from './components/LuckyList'
 const list = dataList(45)
 const PeopleSquare = new Square(list)
 PeopleSquare.setCoordinate()
@@ -71,13 +71,19 @@ class App extends Component {
     return (
       <div className='App'>
         <Nav handleStart={this.handleStart} handleEnd={this.handleEnd} />
-        <CardWrap
-          currentX={currentX}
-          currentY={currentY}
-          objList={PeopleSquare.list}
-          sideLength={PeopleSquare.sideLength}
-        />
-        <div>中奖者： {`${currentX}, ${currentY}`}</div>
+        <article className='App-content'>
+          <section className='content'>
+            <CardWrap
+              currentX={currentX}
+              currentY={currentY}
+              objList={PeopleSquare.list}
+              sideLength={PeopleSquare.sideLength}
+            />
+          </section>
+          <aside className='aside'>
+            <LuckyList />
+          </aside>
+        </article>
       </div>
     )
   }

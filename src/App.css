@@ -9,3 +9,13 @@
   flex-wrap: wrap;
   width: 800px;
 }
+.App-content {
+  display: flex;
+  min-height: 800px;
+}
+.App-content > section {
+  flex:3;
+}
+.App-content > aside {
+  flex: 1;
+}
