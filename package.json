@@ -6,6 +6,7 @@
     "classname": "0.0.0",
     "node-xlsx": "^0.7.4",
     "react": "^15.5.4",
+    "react-avatar": "^2.3.0",
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
@@ -24,5 +25,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "proxy": "http://localhost:81"
 }

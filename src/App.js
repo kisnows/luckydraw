@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 import CardWrap from './components/CardWrap'
 import Square from './utils/Square'
 import { dataList } from './utils/geterate'
@@ -15,13 +15,15 @@ class App extends Component {
     super(props)
   }
   componentDidMount() {
+    fetch('/api/members')
+      .then(res => res.json())
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
   }
-
-
 
   render() {
     return (
-      <div className="App">
+      <div className='App'>
         <CardWrap
           currentX={1}
           currentY={2}
@@ -29,8 +31,8 @@ class App extends Component {
           sideLength={PeopleSquare.sideLength}
         />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
