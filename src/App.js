@@ -40,7 +40,6 @@ class App extends Component {
   componentDidMount() {
     const _this = this
     window.addEventListener('keyup', function (e) {
-      console.log(e.keyCode)
       if (e.keyCode === 13) {
         _this.handleClick()
       }
@@ -89,24 +88,32 @@ class App extends Component {
       })
     }, 300)
   }
+
   handleEnd = () => {
     clearInterval(this.timer)
-    const { currentX, currentY, luckyList, data } = this.state
+    let nextLuckMan = this.getNextLuckMan()
+    let currentX = nextLuckMan.currentX
+    let currentY = nextLuckMan.currentY
+    const { luckyList, data } = this.state
     let index = currentY * this.state.sideLength + currentX
     const nextLuckList = luckyList.slice()
     nextLuckList.push(data.objs[index])
     this.setState({
+      currentX,
+      currentY,
       luckyList: nextLuckList,
       currentLucky: data.objs[index],
       showLuckyCard: true,
       isProcessing: false
     })
   }
+
   handleReset = () => {
     this.setState({
       luckyList: []
     })
   }
+
   handleClick = () => {
     const { isProcessing } = this.state
     if (isProcessing) {
