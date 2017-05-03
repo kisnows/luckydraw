@@ -17,7 +17,7 @@ export default class Lucky extends React.Component {
             subtitle={data[titles[7]]}
           />
           <CardActions style={{textAlign: 'right'}}>
-            <FlatButton label='删除' onClick={handleLuckyDelete} />
+            <FlatButton label='删除' onClick={() => handleLuckyDelete(data[titles[1]])} />
           </CardActions>
         </Card>
       </section>

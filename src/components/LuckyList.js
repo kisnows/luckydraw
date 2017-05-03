@@ -2,10 +2,10 @@ import React from 'react'
 import Lucky from './Lucky'
 import PropTypes from 'prop-types'
 import ReactCssTransitionGroup from 'react-addons-css-transition-group'
-
-export default function LuckyList({ objList }, { titles }) {
+import './LuckyList.css'
+export default function LuckyList({ objList, handleLuckyDelete }, { titles }) {
   const luckyList = objList && objList.map((v) => {
-    return <Lucky data={v} />
+    return <Lucky key={v[titles[1]]} data={v} handleLuckyDelete={handleLuckyDelete} />
   })
   return (
     <ReactCssTransitionGroup

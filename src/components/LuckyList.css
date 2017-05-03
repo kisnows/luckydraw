@@ -1,0 +1,17 @@
+.lucky-enter {
+  opacity: 0.01;
+  transform: translateX(-100px);
+  transition: all .3s ease-in-out;
+}
+.lucky-enter-active {
+  opacity: 1;
+  transform: translateX(0)
+}
+.lucky-leave {
+  transition: all .3s ease-in-out;
+  
+}
+.lucky-leave-active {
+  opacity: 0.01;
+  transform: translateX(100px);
+}

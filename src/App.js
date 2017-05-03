@@ -90,6 +90,26 @@ class App extends Component {
       showLuckyCard: true
     })
   }
+  handleReset = () => {
+    this.setState({
+      luckyList: []
+    })
+  }
+  handleLuckyDelete = (id) => {
+    const { luckyList, data } = this.state
+    const titles = data.titles
+    const index = luckyList.findIndex(el => el[titles[1]] === id)
+    const nextLuckyList = luckyList.slice(0, index).concat(luckyList.slice(index + 1))
+    this.setState({
+      luckyList: nextLuckyList
+    })
+  }
+
+  handleLuckCardClose = () => {
+    this.setState({
+      showLuckyCard: false
+    })
+  }
   getNextLuckMan() {
     let currentX = parseInt(random(0, this.PeopleSquare.sideLength), 10)
     let currentY = parseInt(random(0, this.PeopleSquare.sideLength), 10)
@@ -101,17 +121,12 @@ class App extends Component {
       currentY
     }
   }
-  handleLuckCardClose = () => {
-    this.setState({
-      showLuckyCard: false
-    })
-  }
   render() {
     const { showLuckyCard, currentLucky, isFetching, currentX, currentY, data, sideLength, luckyList } = this.state
     return (
       <div className='App'>
         <LuckyCard open={showLuckyCard} data={currentLucky} handleStart={this.handleStart} handleLuckCardClose={this.handleLuckCardClose} />
-        <Nav handleStart={this.handleStart} handleEnd={this.handleEnd} />
+        <Nav handleStart={this.handleStart} handleEnd={this.handleEnd} handleReset={this.handleReset} />
         <article className='App-content'>
           <section className='content'>
             {!isFetching && <CardWrap
@@ -123,7 +138,7 @@ class App extends Component {
             }
           </section>
           <aside className='aside'>
-            <LuckyList objList={luckyList} />
+            <LuckyList objList={luckyList} handleLuckyDelete={this.handleLuckyDelete} />
           </aside>
         </article>
       </div>
