@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "classname": "0.0.0",
+    "material-ui": "^0.18.0",
     "node-xlsx": "^0.7.4",
     "react": "^15.5.4",
     "react-avatar": "^2.3.0",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-overdrive": "0.0.5"
   },
   "devDependencies": {
     "eslint": "^3.19.0",

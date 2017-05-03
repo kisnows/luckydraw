@@ -1,13 +1,10 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { findDOMNode } from 'react-dom'
 import './CardWrap.css'
 import Square from '../utils/Square'
 import { dataList } from '../utils/generate'
 import Card from './Card'
-
-const list = dataList(45)
-const PeopleSquare = new Square(list)
-PeopleSquare.setCoordinate()
+import PropTypes from 'prop-types'
 
 export default class CardWrap extends React.Component {
   constructor(props) {
@@ -16,11 +13,13 @@ export default class CardWrap extends React.Component {
       x: this.props.currentX || 0,
       y: this.props.currentY || 0,
       cardStyle: {
-        scale: 1
+        scale: 1,
+        width: 100,
+        height: 100
       },
       style: {
-        width: 200,
-        height: 200
+        width: 'auto',
+        height: 'auto'
       }
     }
   }
@@ -33,24 +32,7 @@ export default class CardWrap extends React.Component {
   }
 
   componentDidMount() {
-    const init = this.init
-    init()
-    window.addEventListener('resize', function () {
-      init()
-    }, false)
-  }
-
-  init = () => {
-    const { sideLength } = this.props
-    const $wrap = findDOMNode(this.wrap)
-    const $card = $wrap.getElementsByClassName('component-card')[0]
-    const wrapStyles = window.getComputedStyle($wrap)
-    const cardStyles = window.getComputedStyle($card)
-    const cardWidth = parseInt(cardStyles.width, 10)
-    // const cardHeight = parseInt(cardStyles.height, 10)
-    const width = Math.max(parseInt(wrapStyles.width, 10), parseInt(wrapStyles.height, 10)) * 0.8
-    const vWidth = width / sideLength
-    const scale = vWidth / cardWidth
+    const { width, vWidth, scale } = this.init()
     this.setState({
       cardStyle: {
         scale,
@@ -62,15 +44,40 @@ export default class CardWrap extends React.Component {
         height: width
       }
     })
+    window.addEventListener('resize', function () {
+      const { width, vWidth, scale } = this.init()
+      this.setState({
+        cardStyle: {
+          scale,
+          width: vWidth,
+          height: vWidth
+        },
+        style: {
+          width: width,
+          height: width
+        }
+      })
+    }, false)
+  }
+
+  init = () => {
+    const { sideLength } = this.props
+    const $wrap = findDOMNode(this.wrap)
+    const width = Math.max(parseInt($wrap.offsetWidth, 10), parseInt($wrap.offsetHeight, 10))
+    const vWidth = width / sideLength
+    return {
+      width,
+      vWidth
+    }
   }
   renderCards = () => {
     const { cardStyle } = this.state
     const { currentX, currentY } = this.props
+    const titles = this.context.titles
     return this.props.objList.map(function (v) {
       return <Card
-        key={v.name}
-        title={v.name}
-        des={v.gender}
+        key={v[titles[1]]}
+        data={v}
         coordinate={v.coordinate}
         style={cardStyle}
         isX={currentX === v.coordinate.x}
@@ -94,4 +101,8 @@ export default class CardWrap extends React.Component {
       </section>
     )
   }
+}
+
+CardWrap.contextTypes = {
+  titles: PropTypes.array
 }

@@ -8,21 +8,21 @@ const workSheetsFromFile = xlsx.parse(`${process.cwd()}/public/members.xlsx`)
 const firstSheetName = workSheetsFromFile[0]
 const members = firstSheetName.data
 let i = 1
-let title = []
+let titles = []
 let objs = []
 for (let member of members) {
   if (i === 1) {
     i++
-    title = member
+    titles = member
   } else {
     const obj = {}
     for (let j = 0; j < member.length - 1; j++) {
-      obj[title[j]] = member[j]
+      obj[titles[j]] = member[j]
     }
     Object.keys(obj).length && objs.push(obj)
   }
 }
 module.exports = {
-  title: title,
+  titles: titles,
   objs: objs
 }

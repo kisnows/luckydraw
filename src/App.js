@@ -3,29 +3,51 @@ import './App.css'
 import CardWrap from './components/CardWrap'
 import Nav from './components/Nav'
 import Square from './utils/Square'
-import { dataList, random } from './utils/generate'
+import { random } from './utils/generate'
 import LuckyList from './components/LuckyList'
-const list = dataList(45)
-const PeopleSquare = new Square(list)
-PeopleSquare.setCoordinate()
-
-console.log(PeopleSquare.list)
-
+import PropTypes from 'prop-types'
 class App extends Component {
   constructor(props) {
     super(props)
     this.timer = null
-    this.last = PeopleSquare.getLastCoordinate()
-    console.log(this.last)
+    this.last = {}
+    this.PeopleSquare = {}
     this.state = {
       currentX: 0,
-      currentY: 0
+      currentY: 0,
+      sideLength: 1,
+      isFetching: true,
+      data: {
+        titles: ['姓名'],
+        objs: [{
+          '姓名': 'loading',
+          coordinate: {
+            x: 1,
+            y: 1
+          }
+        }]
+      },
+      luckyList: []
     }
+  }
+  getChildContext = () => {
+    return { titles: this.state.data.titles }
   }
   componentDidMount() {
     fetch('/api/members')
       .then(res => res.json())
-      .then(res => console.log(res))
+      .then(res => {
+        const PeopleSquare = new Square(res.objs)
+        console.log(PeopleSquare)
+        PeopleSquare.setCoordinate()
+        this.PeopleSquare = PeopleSquare
+        this.last = PeopleSquare.getLastCoordinate()
+        this.setState({
+          isFetching: false,
+          data: res,
+          sideLength: PeopleSquare.sideLength
+        })
+      })
       .catch(err => console.log(err))
   }
   handleStart = () => {
@@ -42,7 +64,6 @@ class App extends Component {
       let nextLuckMan = this.getNextLuckMan()
       currentX = nextLuckMan.currentX
       currentY = nextLuckMan.currentY
-      console.log(currentX, currentY, this.last)
       if (currentY > last.y && currentX > last.x) {
         console.error('get nextLuckyMan wrong')
       }
@@ -54,39 +75,55 @@ class App extends Component {
   }
   handleEnd = () => {
     clearInterval(this.timer)
+    const { currentX, currentY, luckyList, data } = this.state
+    let index = currentY * this.state.sideLength + currentX
+    const nextLuckList = luckyList.slice()
+    nextLuckList.push(data.objs[index])
+    this.setState({
+      luckyList: nextLuckList
+    }, () => {
+      console.log(this.state.luckyList)
+    })
   }
   getNextLuckMan() {
-    let currentX = parseInt(random(0, PeopleSquare.sideLength), 10)
-    let currentY = parseInt(random(0, PeopleSquare.sideLength), 10)
+    let currentX = parseInt(random(0, this.PeopleSquare.sideLength), 10)
+    let currentY = parseInt(random(0, this.PeopleSquare.sideLength), 10)
     while (currentY === this.last.currentY && currentX > this.last.currentX) {
-      currentX = parseInt(random(0, PeopleSquare.sideLength), 10)
+      currentX = parseInt(random(0, this.PeopleSquare.sideLength), 10)
     }
     return {
       currentX,
       currentY
     }
   }
+  handleLuckCardClose = () => {
+
+  }
   render() {
-    const { currentX, currentY } = this.state
+    const { isFetching, currentX, currentY, data, sideLength, luckyList } = this.state
     return (
       <div className='App'>
         <Nav handleStart={this.handleStart} handleEnd={this.handleEnd} />
         <article className='App-content'>
           <section className='content'>
-            <CardWrap
+            {!isFetching && <CardWrap
               currentX={currentX}
               currentY={currentY}
-              objList={PeopleSquare.list}
-              sideLength={PeopleSquare.sideLength}
+              objList={data.objs}
+              sideLength={sideLength}
             />
+            }
           </section>
           <aside className='aside'>
-            <LuckyList />
+            <LuckyList objList={luckyList} />
           </aside>
         </article>
       </div>
     )
   }
+}
+App.childContextTypes = {
+  titles: PropTypes.array
 }
 
 export default App

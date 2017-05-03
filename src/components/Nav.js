@@ -1,12 +1,20 @@
 import React from 'react'
-
+import RaisedButton from 'material-ui/RaisedButton'
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
 export default function Nav({ handleStart, handleEnd }) {
   return (
     <nav className='nav'>
-      <ul>
-        <li onClick={handleStart}><button>开始</button></li>
-        <li onClick={handleEnd}><button>结束</button></li>
-      </ul>
+      <Toolbar>
+        <ToolbarGroup firstChild />
+        <ToolbarGroup>
+          <ToolbarTitle text='Options' />
+
+          <ToolbarSeparator />
+          <RaisedButton onClick={handleStart} primary >开始</RaisedButton>
+          <RaisedButton onClick={handleEnd}>结束</RaisedButton>
+
+        </ToolbarGroup>
+      </Toolbar>
     </nav>
   )
 }

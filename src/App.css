@@ -11,11 +11,12 @@
 }
 .App-content {
   display: flex;
-  min-height: 800px;
+  padding-top: 20px;
 }
 .App-content > section {
   flex:3;
 }
 .App-content > aside {
   flex: 1;
+  padding: 0 10px;
 }
