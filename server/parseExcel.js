@@ -16,7 +16,7 @@ for (let member of members) {
     titles = member
   } else {
     const obj = {}
-    for (let j = 0; j < member.length - 1; j++) {
+    for (let j = 0; j < member.length; j++) {
       obj[titles[j]] = member[j]
     }
     Object.keys(obj).length && objs.push(obj)
