@@ -4,19 +4,20 @@
 .App {
   text-align: center;
 }
-.App-cards--wrap {
-  display: flex;
-  flex-wrap: wrap;
-  width: 800px;
-}
+
 .App-content {
   display: flex;
   padding-top: 20px;
+  justify-content: center;
 }
 .App-content > section {
+  display: flex;
   flex:3;
+  min-height: 800px;
+  justify-content: center;
 }
 .App-content > aside {
   flex: 1;
   padding: 0 10px;
+  text-align: left;
 }

@@ -1,8 +1,6 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 import './CardWrap.css'
-import Square from '../utils/Square'
-import { dataList } from '../utils/generate'
 import Card from './Card'
 import PropTypes from 'prop-types'
 
@@ -32,6 +30,7 @@ export default class CardWrap extends React.Component {
   }
 
   componentDidMount() {
+    const _this = this
     const { width, vWidth, scale } = this.init()
     this.setState({
       cardStyle: {
@@ -45,8 +44,8 @@ export default class CardWrap extends React.Component {
       }
     })
     window.addEventListener('resize', function () {
-      const { width, vWidth, scale } = this.init()
-      this.setState({
+      const { width, vWidth, scale } = _this.init()
+      _this.setState({
         cardStyle: {
           scale,
           width: vWidth,
@@ -63,7 +62,8 @@ export default class CardWrap extends React.Component {
   init = () => {
     const { sideLength } = this.props
     const $wrap = findDOMNode(this.wrap)
-    const width = Math.max(parseInt($wrap.offsetWidth, 10), parseInt($wrap.offsetHeight, 10))
+    console.log(parseInt($wrap.offsetWidth, 10), parseInt($wrap.offsetHeight, 10))
+    const width = Math.min(parseInt($wrap.offsetWidth, 10), parseInt($wrap.offsetHeight, 10))
     const vWidth = width / sideLength
     return {
       width,

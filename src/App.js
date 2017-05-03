@@ -5,6 +5,7 @@ import Nav from './components/Nav'
 import Square from './utils/Square'
 import { random } from './utils/generate'
 import LuckyList from './components/LuckyList'
+import LuckyCard from './components/LuckCard'
 import PropTypes from 'prop-types'
 class App extends Component {
   constructor(props) {
@@ -15,8 +16,10 @@ class App extends Component {
     this.state = {
       currentX: 0,
       currentY: 0,
+      currentLucky: {},
       sideLength: 1,
       isFetching: true,
+      showLuckyCard: false,
       data: {
         titles: ['姓名'],
         objs: [{
@@ -58,7 +61,8 @@ class App extends Component {
     const last = this.last
     this.setState({
       currentX,
-      currentY
+      currentY,
+      showLuckyCard: false
     })
     this.timer = setInterval(() => {
       let nextLuckMan = this.getNextLuckMan()
@@ -69,7 +73,8 @@ class App extends Component {
       }
       this.setState({
         currentX,
-        currentY
+        currentY,
+        showLuckyCard: false
       })
     }, 300)
   }
@@ -80,9 +85,9 @@ class App extends Component {
     const nextLuckList = luckyList.slice()
     nextLuckList.push(data.objs[index])
     this.setState({
-      luckyList: nextLuckList
-    }, () => {
-      console.log(this.state.luckyList)
+      luckyList: nextLuckList,
+      currentLucky: data.objs[index],
+      showLuckyCard: true
     })
   }
   getNextLuckMan() {
@@ -97,12 +102,15 @@ class App extends Component {
     }
   }
   handleLuckCardClose = () => {
-
+    this.setState({
+      showLuckyCard: false
+    })
   }
   render() {
-    const { isFetching, currentX, currentY, data, sideLength, luckyList } = this.state
+    const { showLuckyCard, currentLucky, isFetching, currentX, currentY, data, sideLength, luckyList } = this.state
     return (
       <div className='App'>
+        <LuckyCard open={showLuckyCard} data={currentLucky} handleStart={this.handleStart} handleLuckCardClose={this.handleLuckCardClose} />
         <Nav handleStart={this.handleStart} handleEnd={this.handleEnd} />
         <article className='App-content'>
           <section className='content'>
