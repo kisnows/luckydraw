@@ -22,8 +22,8 @@ export default function Card(props, context) {
     background: style && style.background
   }
   return (
-    <div className={cls} style={styles} data-x={coordinate.x} data-y={coordinate.y}>
-      <Avatar name={data[titles[0]]} size={style.width} />
+    <div style={styles} data-x={coordinate.x} data-y={coordinate.y}>
+      <Avatar className={cls} name={data[titles[0]]} size={style.width - 4} />
     </div>
   )
 }

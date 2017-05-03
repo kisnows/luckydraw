@@ -1,7 +1,7 @@
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
-export default function Nav({ handleStart, handleEnd, handleReset }) {
+export default function Nav({ isProcessing, handleClick, handleReset }) {
   return (
     <nav className='nav'>
       <Toolbar>
@@ -10,8 +10,7 @@ export default function Nav({ handleStart, handleEnd, handleReset }) {
           <ToolbarTitle text='Options' />
 
           <ToolbarSeparator />
-          <RaisedButton onClick={handleStart} primary >开始</RaisedButton>
-          <RaisedButton onClick={handleEnd}>结束</RaisedButton>
+          <RaisedButton onClick={handleClick} primary >{isProcessing ? '结束' : '开始'}</RaisedButton>
           <RaisedButton onClick={handleReset}>重置</RaisedButton>
         </ToolbarGroup>
       </Toolbar>

@@ -20,6 +20,7 @@ class App extends Component {
       sideLength: 1,
       isFetching: true,
       showLuckyCard: false,
+      isProcessing: false,
       data: {
         titles: ['姓名'],
         objs: [{
@@ -37,6 +38,14 @@ class App extends Component {
     return { titles: this.state.data.titles }
   }
   componentDidMount() {
+    const _this = this
+    window.addEventListener('keyup', function (e) {
+      console.log(e.keyCode)
+      if (e.keyCode === 13) {
+        _this.handleClick()
+      }
+    }, false)
+
     fetch('/api/members')
       .then(res => res.json())
       .then(res => {
@@ -62,7 +71,8 @@ class App extends Component {
     this.setState({
       currentX,
       currentY,
-      showLuckyCard: false
+      showLuckyCard: false,
+      isProcessing: true
     })
     this.timer = setInterval(() => {
       let nextLuckMan = this.getNextLuckMan()
@@ -74,7 +84,8 @@ class App extends Component {
       this.setState({
         currentX,
         currentY,
-        showLuckyCard: false
+        showLuckyCard: false,
+        isProcessing: true
       })
     }, 300)
   }
@@ -87,13 +98,22 @@ class App extends Component {
     this.setState({
       luckyList: nextLuckList,
       currentLucky: data.objs[index],
-      showLuckyCard: true
+      showLuckyCard: true,
+      isProcessing: false
     })
   }
   handleReset = () => {
     this.setState({
       luckyList: []
     })
+  }
+  handleClick = () => {
+    const { isProcessing } = this.state
+    if (isProcessing) {
+      this.handleEnd()
+    } else {
+      this.handleStart()
+    }
   }
   handleLuckyDelete = (id) => {
     const { luckyList, data } = this.state
@@ -116,17 +136,18 @@ class App extends Component {
     while (currentY === this.last.currentY && currentX > this.last.currentX) {
       currentX = parseInt(random(0, this.PeopleSquare.sideLength), 10)
     }
+    if (currentY === this.last.currentY && currentX > this.last.currentX) { console.log(currentX, currentY, this.last) }
     return {
       currentX,
       currentY
     }
   }
   render() {
-    const { showLuckyCard, currentLucky, isFetching, currentX, currentY, data, sideLength, luckyList } = this.state
+    const { isProcessing, showLuckyCard, currentLucky, isFetching, currentX, currentY, data, sideLength, luckyList } = this.state
     return (
       <div className='App'>
         <LuckyCard open={showLuckyCard} data={currentLucky} handleStart={this.handleStart} handleLuckCardClose={this.handleLuckCardClose} />
-        <Nav handleStart={this.handleStart} handleEnd={this.handleEnd} handleReset={this.handleReset} />
+        <Nav isProcessing={isProcessing} handleClick={this.handleClick} handleReset={this.handleReset} />
         <article className='App-content'>
           <section className='content'>
             {!isFetching && <CardWrap

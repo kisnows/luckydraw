@@ -11,7 +11,7 @@ export default class LuckCard extends React.Component {
     const { titles } = this.context
     const actions = [
       <FlatButton
-        label='在选一个？'
+        label='再选一个？'
         primary
         onClick={handleStart}
       />,

@@ -62,7 +62,6 @@ export default class CardWrap extends React.Component {
   init = () => {
     const { sideLength } = this.props
     const $wrap = findDOMNode(this.wrap)
-    console.log(parseInt($wrap.offsetWidth, 10), parseInt($wrap.offsetHeight, 10))
     const width = Math.min(parseInt($wrap.offsetWidth, 10), parseInt($wrap.offsetHeight, 10))
     const vWidth = width / sideLength
     return {

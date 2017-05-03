@@ -3,6 +3,7 @@ import { Card, CardActions, CardHeader } from 'material-ui/Card'
 import Avatar from 'react-avatar'
 import PropTypes from 'prop-types'
 import FlatButton from 'material-ui/FlatButton'
+
 export default class Lucky extends React.Component {
   render() {
     const { data, handleLuckyDelete } = this.props
@@ -24,6 +25,7 @@ export default class Lucky extends React.Component {
     )
   }
 }
+
 Lucky.contextTypes = {
   titles: PropTypes.array
 }
